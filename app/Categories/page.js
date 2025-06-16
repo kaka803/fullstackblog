@@ -9,6 +9,7 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import Loader from '../components/Loader';
 import { updateBlogViews } from '@/lib/updateblogviews';
+import Image from 'next/image'; // ✅ imported
 
 const CategoriesPage = () => {
   const router = useRouter();
@@ -66,10 +67,8 @@ const CategoriesPage = () => {
     fetchBlogs();
   }, [router]);
 
-  // Extract all categories from blogs
   const allCategories = ["All", ...new Set(blogs.flatMap(blog => blog.category || []))];
 
-  // Filter blogs when category changes
   useEffect(() => {
     if (selectedCategory === "All") {
       setFilteredBlogs(blogs);
@@ -87,83 +86,85 @@ const CategoriesPage = () => {
     router.push("/");
     window.location.reload();
   };
+
   function formatTimeAgo(date) {
     return formatDistanceToNow(new Date(date), { addSuffix: true });
   }
 
   return (
     <>
-    {loading ? (
+      {loading ? (
         <div className="w-full bg-black text-white h-screen flex justify-center items-center">
-          <Loader/>
+          <Loader />
         </div>
-      ) : (<div>
-      <Navbar user={user} onLogout={handleLogout} />
-
-      <section className="py-14 px-6 bg-black text-white min-h-screen">
-        <Link href='/createblog' className="z-20">
-      <Button
-      className="bg-white fixed bottom-4.5 right-4.5 z-20 active:bg-black active:border-white active:text-white  text-black border border-gray-300 hover:bg-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] transition-all duration-300 px-6 py-3 text-base font-semibold rounded-2xl flex items-center gap-2"
-    >
-      <Plus className="w-4 h-4" />
-      Create Blog
-    </Button>
-    </Link>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10">📂 Categories</h2>
-
-        <div className="flex flex-wrap gap-4 justify-center mb-10">
-          {allCategories.map((cat) => (
-            <Button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              variant="outline"
-              className={`rounded-full border-white text-sm transition px-4 py-2 ${
-                selectedCategory === cat
-                  ? "bg-black text-white border-white"
-                  : "text-black hover:bg-white hover:text-black"
-              }`}
-            >
-              #{cat}
-            </Button>
-          ))}
-        </div>
-
-        {loading ? (
-          <p className="text-center text-zinc-400"><Loader/></p>
-        ) : filteredBlogs.length === 0 ? (
-          <p className="text-center text-zinc-500">No blogs found in this category.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {filteredBlogs.map((blog, index) => (
-              <a
-              onClick={() => updateBlogViews(blog._id)}
-               href={`/blogpost/${blog._id}`} key={index} className="no-underline">
-              <Card
-                key={index}
-                className="bg-[#1b1b1b] rounded-2xl hover:scale-[1.01] transition overflow-hidden"
+      ) : (
+        <div>
+          <Navbar user={user} onLogout={handleLogout} />
+          <section className="py-14 px-6 bg-black text-white min-h-screen">
+            <Link href='/createblog' className="z-20">
+              <Button
+                className="bg-white fixed bottom-4.5 right-4.5 z-20 active:bg-black active:border-white active:text-white  text-black border border-gray-300 hover:bg-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] transition-all duration-300 px-6 py-3 text-base font-semibold rounded-2xl flex items-center gap-2"
               >
-                <CardContent className="p-0">
-                  <img
-                    src={blog.image || "/fallback.jpg"}
-                    alt={blog.title}
-                    className="h-48 w-full object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="text-xl text-white font-bold">{blog.title}</h3>
-                    <p className="text-sm text-gray-400 mt-2">
-                      By {blog.writer || "Unknown"} • {formatTimeAgo(blog.date) || "Unknown time"}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              </a>
-            ))}
-          </div>
-        )}
-      </section>
-    </div>)
-    }
-    
+                <Plus className="w-4 h-4" />
+                Create Blog
+              </Button>
+            </Link>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10">📂 Categories</h2>
+
+            <div className="flex flex-wrap gap-4 justify-center mb-10">
+              {allCategories.map((cat) => (
+                <Button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  variant="outline"
+                  className={`rounded-full border-white text-sm transition px-4 py-2 ${
+                    selectedCategory === cat
+                      ? "bg-black text-white border-white"
+                      : "text-black hover:bg-white hover:text-black"
+                  }`}
+                >
+                  #{cat}
+                </Button>
+              ))}
+            </div>
+
+            {filteredBlogs.length === 0 ? (
+              <p className="text-center text-zinc-500">No blogs found in this category.</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {filteredBlogs.map((blog, index) => (
+                  <a
+                    onClick={() => updateBlogViews(blog._id)}
+                    href={`/blogpost/${blog._id}`}
+                    key={index}
+                    className="no-underline"
+                  >
+                    <Card className="bg-[#1b1b1b] rounded-2xl hover:scale-[1.01] transition overflow-hidden">
+                      <CardContent className="p-0">
+                        <div className="relative w-full h-48">
+                          <img
+                            src={blog.image || "/fallback.jpg"} // ✅ fallback image
+                            alt={blog.title || "Blog image"}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="text-xl text-white font-bold">{blog.title}</h3>
+                          <p className="text-sm text-gray-400 mt-2">
+                            By {blog.writer || "Unknown"} • {formatTimeAgo(blog.date) || "Unknown time"}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+      )}
     </>
   );
 };

@@ -96,14 +96,14 @@ const params = useParams();
     };
 
     useEffect(() => {
-      setImage(blogData.image)
-              setTitle(blogData.title)
-              setContent(blogData.content)
-              setDescription(blogData.description)
+  setImage(blogData.image);
+  setTitle(blogData.title);
+  setContent(blogData.content);
+  setDescription(blogData.description);
 
-              deleteBlog(blogData._id)
-              
-    }, [blogData])
+  deleteBlog(blogData._id); // This line is fine
+
+}, [blogData]);
     
 
     const createBlog = async () => {
