@@ -158,9 +158,10 @@ export default function CreateBlogForm() {
             <option value="News">News</option>
             <option value="Travel">Travel</option>
             <option value="Food">Food</option>
-            <option value="Business & Finance">Business And Finance</option>
-            <option value="Personal Development">Personal Development</option>
-            <option value="Other">Other</option>
+            <option value="Health">Health</option>
+            <option value="Sports">Sports</option>
+            <option value="Finance">Finance</option>
+            <option value="Fashion">Fashion</option>
           </select>
           <p className="text-sm text-gray-400">
             Hold Ctrl (Cmd on Mac) to select multiple categories.
