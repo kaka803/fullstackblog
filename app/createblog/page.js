@@ -151,11 +151,16 @@ export default function CreateBlogForm() {
             }
             className="w-full bg-zinc-900 border border-zinc-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
-            <option value="Tech">Tech</option>
-            <option value="Freelancing">Freelancing</option>
-            <option value="AI Tools">AI Tools</option>
-            <option value="Productivity">Productivity</option>
-            <option value="Design">Design</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Technology">Technology</option>
+            <option value="Education">Education</option> 
+            <option value="Entertainment">Entertainment</option>
+            <option value="News">News</option>
+            <option value="Travel">Travel</option>
+            <option value="Food">Food</option>
+            <option value="Business & Finance">Business And Finance</option>
+            <option value="Personal Development">Personal Development</option>
+            <option value="Other">Other</option>
           </select>
           <p className="text-sm text-gray-400">
             Hold Ctrl (Cmd on Mac) to select multiple categories.

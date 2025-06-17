@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-4">
       <motion.div {...fadeUp} className="bg-[#1b1b1b] p-10 rounded-2xl w-full max-w-md shadow-lg">
-        <h2 className="text-3xl font-semibold text-white text-center mb-6">Login to InsightVerse</h2>
+        <h2 className="text-3xl font-semibold text-white text-center mb-6">Login to Hassnain Writes</h2>
         <form onSubmit={handlelogin} className="space-y-5">
           <div className="flex flex-col space-y-1">
             <label className="text-white text-sm">Email</label>
