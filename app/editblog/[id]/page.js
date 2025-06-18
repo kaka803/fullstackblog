@@ -212,11 +212,17 @@ const deleteBlog = async (id) => {
                             setCategory(selected);
                         }}
                     >
-                        <option value="Tech">Tech</option>
-                        <option value="Freelancing">Freelancing</option>
-                        <option value="AI Tools">AI Tools</option>
-                        <option value="Productivity">Productivity</option>
-                        <option value="Design">Design</option>
+                        <option value="Lifestyle">Lifestyle</option>
+            <option value="Technology">Technology</option>
+            <option value="Education">Education</option> 
+            <option value="Entertainment">Entertainment</option>
+            <option value="News">News</option>
+            <option value="Travel">Travel</option>
+            <option value="Food">Food</option>
+            <option value="Health">Health</option>
+            <option value="Sports">Sports</option>
+            <option value="Finance">Finance</option>
+            <option value="Fashion">Fashion</option>
                     </select>
 
                     <p className="text-sm text-gray-400">You can select multiple categories by holding Ctrl (Cmd on Mac)</p>
